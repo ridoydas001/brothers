@@ -1,0 +1,60 @@
+class Event:
+    def __init__(self, date, title, description):
+        self.date = date
+        self.title = title
+        self.description = description
+
+    def __str__(self):
+        return f"Дата: {self.date}\nЗаголовок: {self.title}\nОписание: {self.description}"
+
+class Calendar:
+    def __init__(self):
+        self.events = []
+
+    def add_event(self, date, title, description):
+        event = Event(date, title, description)
+        self.events.append(event)
+
+    def remove_event_by_index(self, index):
+        if 0 <= index < len(self.events):
+            del self.events[index]
+
+    def view_events(self):
+        if not self.events:
+            print("Список событий пуст.")
+        else:
+            print("Список событий:")
+            for i, event in enumerate(self.events):
+                print(f"{i + 1}. {event}")
+
+calendar = Calendar()
+
+while True:
+    print("Календарь")
+    print("1. Добавить событие")
+    print("2. Удалить событие")
+    print("3. Просмотреть события")
+    print("4. Выйти")
+
+    choice = input("Выберите действие: ")
+
+    if choice == "1":
+        date = input("Введите дату события: ")
+        title = input("Введите заголовок события: ")
+        description = input("Введите описание события: ")
+        calendar.add_event(date, title, description)
+        print("Событие успешно добавлено.")
+
+    elif choice == "2":
+        index = int(input("Введите индекс события для удаления: ")) - 1
+        calendar.remove_event_by_index(index)
+        print("Событие удалено.")
+
+    elif choice == "3":
+        calendar.view_events()
+
+    elif choice == "4":
+        break
+
+    else:
+        print("Неверный выбор. Пожалуйста, выберите снова.")
